@@ -3,3 +3,4 @@ results
 target
 *.iml
 *.iml
+target/surefire-reports/BDDquickstock.RunCucumberTest.txt
