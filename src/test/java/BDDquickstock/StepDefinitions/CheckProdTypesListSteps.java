@@ -22,18 +22,17 @@ public class CheckProdTypesListSteps {
     By by;
 
 
-    @Given("I have the website open on the dashboard of the company")
-    public void iHaveTheWebsiteOpenOnTheDashboardOfTheCompany() throws Exception{
+    @Given("I have the website open on the dashboard of the company to test {string}")
+    public void iHaveTheWebsiteOpenOnTheDashboardOfTheCompanyToTest(String arg0) throws Exception{
         System.out.println(" I am inside GIVEN");
-        System.out.println("1");
+
         driver = new RemoteWebDriver("J-mUGKFif_vlwJIdRx1oKtVXq7E_dCwaElhto-eZ76g1", new ChromeOptions(),
-                "QS_QuickStock", "ProductType Feature");
-        System.out.println("2");
+                "QS_QuickStock", arg0);
+
         driver.manage().timeouts().implicitlyWait(15000, TimeUnit.MILLISECONDS);
-        System.out.println("3");
         GeneratedUtils.sleep(500);
+
         driver.navigate().to(appURL);
-        System.out.println("4");
         GeneratedUtils.sleep(500);
         by = By.cssSelector("#inputEmail");
         driver.findElement(by).click();
