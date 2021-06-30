@@ -1,4 +1,4 @@
-package BDDquickstock;
+package BDDquickstock.StepDefinitions;
 
 
 import BDDquickstock.SupportClasses.GeneratedUtils;
@@ -15,7 +15,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import java.util.concurrent.TimeUnit;
 
 
-public class StepDefinitions {
+public class CheckProdTypesListSteps {
 
     public static WebDriver driver;
     public static String appURL = "http://34.116.153.60:3000/";
