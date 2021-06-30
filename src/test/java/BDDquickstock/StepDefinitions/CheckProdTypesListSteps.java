@@ -21,9 +21,8 @@ public class CheckProdTypesListSteps {
     public static String appURL = "http://34.116.153.60:3000/";
     By by;
 
-
     @Given("I have the website open on the dashboard of the company to test {string}")
-    public void iHaveTheWebsiteOpenOnTheDashboardOfTheCompanyToTest(String arg0) throws Exception{
+    public void iHaveTheWebsiteOpenOnTheDashboardOfTheCompanyToTest(String arg0) throws Exception {
         System.out.println(" I am inside GIVEN");
 
         driver = new RemoteWebDriver("J-mUGKFif_vlwJIdRx1oKtVXq7E_dCwaElhto-eZ76g1", new ChromeOptions(),
@@ -57,6 +56,8 @@ public class CheckProdTypesListSteps {
         by = By.xpath("//button[. = 'Log In']");
         driver.findElement(by).click();
     }
+
+
 
     @When("I click on the {string} tab in the sidebar")
     public void iClickOnTheTabInTheSidebar(String arg0) throws Exception{
