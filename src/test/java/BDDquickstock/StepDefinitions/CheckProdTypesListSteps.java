@@ -28,6 +28,7 @@ public class CheckProdTypesListSteps {
     String buildName = System.getenv("BROWSERSTACK_BUILD_NAME");
     String browserstackLocal = System.getenv("BROWSERSTACK_LOCAL");
     String browserstackLocalIdentifier = System.getenv("BROWSERSTACK_LOCAL_IDENTIFIER");
+    String agentURL = System.getenv("TP_AGENT_URL");
 
     //public static WebDriver driver;
     ChromeDriver driver = null;
@@ -62,6 +63,7 @@ public class CheckProdTypesListSteps {
                 TestProjectCapabilityType.CLOUD_URL,
                 "https://oauth-tiagosssimoes-bd7fc:9eea4c97-4f7d-40c4-9aa6-32f9045db782@ondemand.eu-central-1.saucelabs.com:443/wd/hub");
         driver = new DriverBuilder<ChromeDriver>(chromeOptions)
+                .withRemoteAddress(new URL(agentURL))
                 .withToken("J-mUGKFif_vlwJIdRx1oKtVXq7E_dCwaElhto-eZ76g1")
                 .withProjectName("QS_QuickStock")
                 .withJobName(arg0)
