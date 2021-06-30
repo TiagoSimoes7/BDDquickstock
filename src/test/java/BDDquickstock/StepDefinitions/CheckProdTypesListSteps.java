@@ -89,7 +89,7 @@ public class CheckProdTypesListSteps {
 
     @When("I click on the {string} tab in the sidebar")
     public void iClickOnTheTabInTheSidebar(String arg0) throws Exception{
-        System.out.println(" I am inside When");
+        System.out.println(" I am inside When"+arg0);
         GeneratedUtils.sleep(500);
         by = By.xpath("//nav[1]/ul/li/div[1]");
         driver.findElement(by).click();
