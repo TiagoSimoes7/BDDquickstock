@@ -6,18 +6,30 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.testproject.sdk.DriverBuilder;
+import io.testproject.sdk.drivers.web.ChromeDriver;
 import io.testproject.sdk.drivers.web.RemoteWebDriver;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
+import java.net.URL;
+import java.sql.Driver;
 import java.util.concurrent.TimeUnit;
 
 
 public class CheckProdTypesListSteps {
 
+    String username = System.getenv("BROWSERSTACK_USERNAME");
+    String accessKey = System.getenv("BROWSERSTACK_ACCESS_KEY");
+    String buildName = System.getenv("BROWSERSTACK_BUILD_NAME");
+    String browserstackLocal = System.getenv("BROWSERSTACK_LOCAL");
+    String browserstackLocalIdentifier = System.getenv("BROWSERSTACK_LOCAL_IDENTIFIER");
+
     public static WebDriver driver;
+    //ChromeDriver driver = null;
     public static String appURL = "http://34.116.153.60:3000/";
     By by;
 
@@ -25,8 +37,24 @@ public class CheckProdTypesListSteps {
     public void iHaveTheWebsiteOpenOnTheDashboardOfTheCompanyToTest(String arg0) throws Exception {
         System.out.println(" I am inside GIVEN");
 
-        driver = new RemoteWebDriver("J-mUGKFif_vlwJIdRx1oKtVXq7E_dCwaElhto-eZ76g1", new ChromeOptions(),
-                "QS_QuickStock", arg0);
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("os", "Windows");
+        capabilities.setCapability("os_version", "10");
+        capabilities.setCapability("browser", "chrome");
+        capabilities.setCapability("browser_version", "latest");
+        capabilities.setCapability("name", "BStack-[Java] Sample Test"); // test buildName
+        capabilities.setCapability("build", buildName); // CI/CD job name using BROWSERSTACK_BUILD_NAME env variable
+        capabilities.setCapability("browserstack.local", browserstackLocal);
+        capabilities.setCapability("browserstack.localIdentifier", browserstackLocalIdentifier);
+        driver = new RemoteWebDriver(new URL("https://" + username + ":" + accessKey + "@hub.browserstack.com/wd/hub"), capabilities);
+
+        /*driver = new RemoteWebDriver("J-mUGKFif_vlwJIdRx1oKtVXq7E_dCwaElhto-eZ76g1", new ChromeOptions(),
+                "QS_QuickStock", arg0);*/
+
+        /*driver = new DriverBuilder<ChromeDriver>(new ChromeOptions())
+                .withRemoteAddress(new URL("192.168.33.1"))
+                .withToken("J-mUGKFif_vlwJIdRx1oKtVXq7E_dCwaElhto-eZ76g1").build(ChromeDriver.class);*/
+
 
         driver.manage().timeouts().implicitlyWait(15000, TimeUnit.MILLISECONDS);
         GeneratedUtils.sleep(500);
