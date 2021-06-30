@@ -7,6 +7,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.testproject.sdk.DriverBuilder;
+import io.testproject.sdk.drivers.TestProjectCapabilityType;
 import io.testproject.sdk.drivers.web.ChromeDriver;
 import io.testproject.sdk.drivers.web.RemoteWebDriver;
 import org.junit.jupiter.api.Assertions;
@@ -28,8 +29,8 @@ public class CheckProdTypesListSteps {
     String browserstackLocal = System.getenv("BROWSERSTACK_LOCAL");
     String browserstackLocalIdentifier = System.getenv("BROWSERSTACK_LOCAL_IDENTIFIER");
 
-    public static WebDriver driver;
-    //ChromeDriver driver = null;
+    //public static WebDriver driver;
+    ChromeDriver driver = null;
     public static String appURL = "http://34.116.153.60:3000/";
     By by;
 
@@ -37,7 +38,7 @@ public class CheckProdTypesListSteps {
     public void iHaveTheWebsiteOpenOnTheDashboardOfTheCompanyToTest(String arg0) throws Exception {
         System.out.println(" I am inside GIVEN");
 
-        DesiredCapabilities capabilities = new DesiredCapabilities();
+        /*DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("os", "Windows");
         capabilities.setCapability("os_version", "10");
         capabilities.setCapability("browser", "chrome");
@@ -47,14 +48,21 @@ public class CheckProdTypesListSteps {
         capabilities.setCapability("browserstack.local", browserstackLocal);
         capabilities.setCapability("browserstack.localIdentifier", browserstackLocalIdentifier);
         driver = new RemoteWebDriver(new URL("https://" + username + ":" + accessKey + "@hub.browserstack.com/wd/hub"), capabilities);
+        */
 
-        /*driver = new RemoteWebDriver("J-mUGKFif_vlwJIdRx1oKtVXq7E_dCwaElhto-eZ76g1", new ChromeOptions(),
-                "QS_QuickStock", arg0);*/
+        //driver = new RemoteWebDriver("J-mUGKFif_vlwJIdRx1oKtVXq7E_dCwaElhto-eZ76g1", new ChromeOptions(),
+           //     "QS_QuickStock", arg0);
 
         /*driver = new DriverBuilder<ChromeDriver>(new ChromeOptions())
                 .withRemoteAddress(new URL("192.168.33.1"))
                 .withToken("J-mUGKFif_vlwJIdRx1oKtVXq7E_dCwaElhto-eZ76g1").build(ChromeDriver.class);*/
 
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.setCapability(
+                TestProjectCapabilityType.CLOUD_URL,
+                "https://oauth-tiagosssimoes-bd7fc:9eea4c97-4f7d-40c4-9aa6-32f9045db782@ondemand.eu-central-1.saucelabs.com:443/wd/hub");
+        driver = new DriverBuilder<ChromeDriver>(chromeOptions)
+                .withToken("J-mUGKFif_vlwJIdRx1oKtVXq7E_dCwaElhto-eZ76g1").build(ChromeDriver.class);
 
         driver.manage().timeouts().implicitlyWait(15000, TimeUnit.MILLISECONDS);
         GeneratedUtils.sleep(500);
