@@ -49,10 +49,10 @@ public class CheckProdTypesListSteps {
                 .withToken("J-mUGKFif_vlwJIdRx1oKtVXq7E_dCwaElhto-eZ76g1").build(MVMVN ChromeDriver.class);*/
 
         ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.setCapability(
+       /* chromeOptions.setCapability(
                 TestProjectCapabilityType.CLOUD_URL,
                 "https://oauth-tiagosssimoes-bd7fc:9eea4c97-4f7d-40c4-9aa6-32f9045db782@ondemand.eu-central-1.saucelabs.com:443/wd/hub");
-
+*/
         driver = new DriverBuilder<ChromeDriver>(chromeOptions)
                 .withToken("J-mUGKFif_vlwJIdRx1oKtVXq7E_dCwaElhto-eZ76g1")
                 .withProjectName("QS_QuickStock")
