@@ -31,8 +31,8 @@ public class CheckProdTypesListSteps {
     String browserstackLocalIdentifier = System.getenv("BROWSERSTACK_LOCAL_IDENTIFIER");
     String agentURL = System.getenv("TP_AGENT_URL");
 
-    public static WebDriver driver;
-    //ChromeDriver driver = null;
+    //public static WebDriver driver;
+    ChromeDriver driver = null;
     public static String appURL = "http://34.116.153.60:3000/";
     By by;
 
@@ -53,14 +53,14 @@ public class CheckProdTypesListSteps {
         driver = new RemoteWebDriver(new URL("https://" + username + ":" + accessKey + "@hub.browserstack.com/wd/hub"), capabilities);
         */
 
-        driver = new RemoteWebDriver("J-mUGKFif_vlwJIdRx1oKtVXq7E_dCwaElhto-eZ76g1", new ChromeOptions(),
-               "QS_QuickStock", arg0);
+        /*driver = new RemoteWebDriver("J-mUGKFif_vlwJIdRx1oKtVXq7E_dCwaElhto-eZ76g1", new ChromeOptions(),
+               "QS_QuickStock", arg0);*/
 
         /*driver = new DriverBuilder<ChromeDriver>(new ChromeOptions())
                 .withRemoteAddress(new URL("192.168.33.1"))
-                .withToken("J-mUGKFif_vlwJIdRx1oKtVXq7E_dCwaElhto-eZ76g1").build(ChromeDriver.class);*/
+                .withToken("J-mUGKFif_vlwJIdRx1oKtVXq7E_dCwaElhto-eZ76g1").build(MVMVN ChromeDriver.class);*/
 
-        /*ChromeOptions chromeOptions = new ChromeOptions();
+        ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.setCapability(
                 TestProjectCapabilityType.CLOUD_URL,
                 "https://oauth-tiagosssimoes-bd7fc:9eea4c97-4f7d-40c4-9aa6-32f9045db782@ondemand.eu-central-1.saucelabs.com:443/wd/hub");
@@ -68,7 +68,7 @@ public class CheckProdTypesListSteps {
                 .withToken("J-mUGKFif_vlwJIdRx1oKtVXq7E_dCwaElhto-eZ76g1")
                 .withProjectName("QS_QuickStock")
                 .withJobName(arg0)
-                .build(ChromeDriver.class);*/
+                .build(ChromeDriver.class);
 
         driver.manage().timeouts().implicitlyWait(15000, TimeUnit.MILLISECONDS);
         GeneratedUtils.sleep(500);
