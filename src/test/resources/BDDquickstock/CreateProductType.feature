@@ -7,7 +7,7 @@ Feature: Create Product Type
     Given I have the website open on the dashboard of the company to test "CreateProductType"
     When I click on the "Products" tab in the sidebar
     And I click on the Manage Product Types in the Products tab
-    And I click on the Create a Product Type button
+    And I click on the "Create a Product Type" button
     And I input a valid product type name
     And I click on the Submit button
     Then I check the successful message
