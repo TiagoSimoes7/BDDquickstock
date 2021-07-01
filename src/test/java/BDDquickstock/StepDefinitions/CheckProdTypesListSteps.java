@@ -16,6 +16,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Driver;
 import java.util.concurrent.TimeUnit;
@@ -34,6 +35,7 @@ public class CheckProdTypesListSteps {
     ChromeDriver driver = null;
     public static String appURL = "http://34.116.153.60:3000/";
     By by;
+
 
     @Given("I have the website open on the dashboard of the company to test {string}")
     public void iHaveTheWebsiteOpenOnTheDashboardOfTheCompanyToTest(String arg0) throws Exception {
@@ -63,7 +65,6 @@ public class CheckProdTypesListSteps {
                 TestProjectCapabilityType.CLOUD_URL,
                 "https://oauth-tiagosssimoes-bd7fc:9eea4c97-4f7d-40c4-9aa6-32f9045db782@ondemand.eu-central-1.saucelabs.com:443/wd/hub");
         driver = new DriverBuilder<ChromeDriver>(chromeOptions)
-                .withRemoteAddress(new URL(agentURL))
                 .withToken("J-mUGKFif_vlwJIdRx1oKtVXq7E_dCwaElhto-eZ76g1")
                 .withProjectName("QS_QuickStock")
                 .withJobName(arg0)
