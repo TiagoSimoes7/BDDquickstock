@@ -6,5 +6,5 @@ Feature: Check Product Types List
   Scenario: Company have product types associated
     Given I have the website open on the dashboard of the company to test "ProductType Feature"
     When I click on the "Products" tab in the sidebar
-    And I click on the "Manage Product Types" in the "Products" tab
+    And I click on the Manage Product Types in the Products tab
     Then I can check the product type's list

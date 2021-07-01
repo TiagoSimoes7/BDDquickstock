@@ -2,11 +2,14 @@ package BDDquickstock.StepDefinitions;
 
 
 import BDDquickstock.SupportClasses.GeneratedUtils;
+import BDDquickstock.SupportClasses.Generaterandomstringwithspecificboundsandlength;
+import BDDquickstock.SupportClasses.ProjectParameters;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.testproject.sdk.DriverBuilder;
+import io.testproject.sdk.drivers.ReportingDriver;
 import io.testproject.sdk.drivers.TestProjectCapabilityType;
 import io.testproject.sdk.drivers.web.ChromeDriver;
 import io.testproject.sdk.drivers.web.RemoteWebDriver;
@@ -24,16 +27,11 @@ import java.util.concurrent.TimeUnit;
 
 public class CheckProdTypesListSteps {
 
-    String username = System.getenv("BROWSERSTACK_USERNAME");
-    String accessKey = System.getenv("BROWSERSTACK_ACCESS_KEY");
-    String buildName = System.getenv("BROWSERSTACK_BUILD_NAME");
-    String browserstackLocal = System.getenv("BROWSERSTACK_LOCAL");
-    String browserstackLocalIdentifier = System.getenv("BROWSERSTACK_LOCAL_IDENTIFIER");
-    String agentURL = System.getenv("TP_AGENT_URL");
 
     //public static WebDriver driver;
     ChromeDriver driver = null;
     public static String appURL = "http://34.116.153.60:3000/";
+    Generaterandomstringwithspecificboundsandlength.GenerateRandomStringWithFormat generateRandomStringWithFormat;
     By by;
 
 
@@ -41,17 +39,6 @@ public class CheckProdTypesListSteps {
     public void iHaveTheWebsiteOpenOnTheDashboardOfTheCompanyToTest(String arg0) throws Exception {
         System.out.println(" I am inside GIVEN");
 
-        /*DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("os", "Windows");
-        capabilities.setCapability("os_version", "10");
-        capabilities.setCapability("browser", "chrome");
-        capabilities.setCapability("browser_version", "latest");
-        capabilities.setCapability("name", "BStack-[Java] Sample Test"); // test buildName
-        capabilities.setCapability("build", buildName); // CI/CD job name using BROWSERSTACK_BUILD_NAME env variable
-        capabilities.setCapability("browserstack.local", browserstackLocal);
-        capabilities.setCapability("browserstack.localIdentifier", browserstackLocalIdentifier);
-        driver = new RemoteWebDriver(new URL("https://" + username + ":" + accessKey + "@hub.browserstack.com/wd/hub"), capabilities);
-        */
 
         /*driver = new RemoteWebDriver("J-mUGKFif_vlwJIdRx1oKtVXq7E_dCwaElhto-eZ76g1", new ChromeOptions(),
                "QS_QuickStock", arg0);*/
@@ -64,6 +51,7 @@ public class CheckProdTypesListSteps {
         chromeOptions.setCapability(
                 TestProjectCapabilityType.CLOUD_URL,
                 "https://oauth-tiagosssimoes-bd7fc:9eea4c97-4f7d-40c4-9aa6-32f9045db782@ondemand.eu-central-1.saucelabs.com:443/wd/hub");
+        
         driver = new DriverBuilder<ChromeDriver>(chromeOptions)
                 .withToken("J-mUGKFif_vlwJIdRx1oKtVXq7E_dCwaElhto-eZ76g1")
                 .withProjectName("QS_QuickStock")
@@ -110,15 +98,15 @@ public class CheckProdTypesListSteps {
 
     }
 
-    @And("I click on the {string} in the {string} tab")
-    public void iClickOnTheInTheTab(String arg0, String arg1) throws Exception{
+    @And("I click on the Manage Product Types in the Products tab")
+    public void iClickOnTheManageProductTypesInTheProductsTab() throws Exception{
         System.out.println(" I am inside And");
         // 4. Click 'Manage Product Types'
         GeneratedUtils.sleep(500);
         by = By.xpath("//span[. = 'Manage Product Types']");
         driver.findElement(by).click();
-
     }
+
     @Then("I can check the product type's list")
     public void iCanCheckTheProductTypeSList() throws Exception{
         System.out.println(" I am inside Then");
@@ -126,11 +114,65 @@ public class CheckProdTypesListSteps {
         by = By.xpath("//h1[. = 'List of product types']");
         Assertions.assertTrue(driver.findElement(by).getText().contains("List of product types"));
 
-        GeneratedUtils.sleep(1000);
         if (driver != null) {
-            driver.close();
+            driver.quit();
         }
     }
 
+
+    @And("I click on the Create a Product Type button")
+    public void iClickOnTheButton() throws Exception {
+        // 5. Click 'Create a product type'
+        GeneratedUtils.sleep(500);
+        by = By.xpath("//button[. = 'Create a product type']");
+        driver.findElement(by).click();
+
+        // 6. Does 'Create a new product type' contain 'Create a new product type'?
+        GeneratedUtils.sleep(500);
+        by = By.xpath("//h1[. = 'Create a new product type']");
+        Assertions.assertTrue(driver.findElement(by).getText().contains("Create a new product type"));
+
+    }
+
+    @And("I input a valid product type name")
+    public void iInputAValidProductTypeName() throws Exception{
+        GeneratedUtils.sleep(500);
+        by = By.cssSelector("#inputName");
+        driver.findElement(by).click();
+
+        // 8. This action generates a random string from given characters and length
+        GeneratedUtils.sleep(500);
+        generateRandomStringWithFormat = Generaterandomstringwithspecificboundsandlength.generateRandomStringWithFormat("qwertyuiopasdfghjklzxcvbnm","7");
+        generateRandomStringWithFormat = (Generaterandomstringwithspecificboundsandlength.GenerateRandomStringWithFormat)((ReportingDriver)driver).addons().execute(generateRandomStringWithFormat);
+        ProjectParameters.TypeProductName= generateRandomStringWithFormat.output;
+
+        // 9. Type '{{TypeProductName}}' in 'Enter the type name'
+        GeneratedUtils.sleep(500);
+        by = By.cssSelector("#inputName");
+        driver.findElement(by).sendKeys(ProjectParameters.TypeProductName);
+
+    }
+
+    @Then("I check the successful message")
+    public void iCheckTheSuccessfulMessage() throws Exception{
+        // 11. Is 'svg' present?
+        GeneratedUtils.sleep(500);
+        by = By.xpath("//div[1]/*[name()='svg']");
+        driver.findElement(by);
+
+        // 12. Does 'List of product types' contain 'List of product types'?
+        GeneratedUtils.sleep(500);
+        by = By.xpath("//h1[. = 'List of product types']");
+        Assertions.assertTrue(driver.findElement(by).getText().contains("List of product types"));
+    }
+
+
+    @And("I click on the Submit button")
+    public void iClickOnTheSubmitButton() throws Exception {
+        // 10. Click 'Submit1'
+        GeneratedUtils.sleep(500);
+        by = By.xpath("//button[. = 'Submit']");
+        driver.findElement(by).click();
+    }
 
 }
